@@ -1,12 +1,12 @@
-function createChart(inputData, labels, headLabel){
+function createChart(inputData, labels, headLabel, htmlElementID){
     //document.createElement("div").setAttribute("id", "chartContainer").setAttribute("style", "height: 300px; width: 100%;");
-    document.getElementById("chartContainer").setAttribute("style", "height: 300px; width: 100%;");
-    formattedData = []
+    document.getElementById(htmlElementID).setAttribute("style", "height: 300px; width: 100%;");
+    this.formattedData = []
     for(i = 0; i < inputData.length; i++){
         dataPoint = {"y": inputData[i], "label": labels[i]};
-        formattedData.push(dataPoint);
+        this.formattedData.push(dataPoint);
     }
-    var chart = new CanvasJS.Chart("chartContainer", {
+    this.chart = new CanvasJS.Chart(htmlElementID, {
 
         title:{
             text:headLabel
@@ -36,7 +36,8 @@ function createChart(inputData, labels, headLabel){
             ]
 
     })
-    chart.render();
+    this.chart.render();
+    return this;
 }
 
 function getMostPopStates(people){
@@ -230,9 +231,16 @@ function processFileContent(fileContent){
         parent.removeChild(child);
     })
 
-    createChart(gender, genderLabels, "Gender");
+    createChart(gender, genderLabels, "Gender", "chartContainerGender");
+    createChart(first, firstLabels, "First Names", "chartContainerFirstNames");
+    createChart(last, lastLabels, "Last Names", "chartContainerLastNames");
+    createChart(state, mostPopStates, "States", "chartContainerStates");
+    createChart(femaleState, mostPopStates, "Female States", "chartContainerFemaleStates");
+    createChart(maleState, mostPopStates, "Male States", "chartContainerMaleStates");
+    createChart(ages, ageLabels, "Ages", "chartContainerAges");
 
     //draw buttons
+    /**
     var span = document.createElement('span');
     span.innerHTML = '<button class="gender">Gender</button>';
 
@@ -278,6 +286,8 @@ function processFileContent(fileContent){
         .on("click", function () {
             createChart(ages, ageLabels, "Age Classifications");
         });
+
+     **/
 
 }
 
