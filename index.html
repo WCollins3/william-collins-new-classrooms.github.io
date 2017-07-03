@@ -1,0 +1,23 @@
+<head>
+    <title>Trial Project</title>
+</head>
+
+<body>
+
+<div id="chartContainer" style="height: 300px; width: 100%;">
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="canvasjs-1.9.9/canvasjs.min.js"></script>
+<script src="script.js"></script>
+
+<div id="div1">
+<input type="file" id="file" name="file" accept=".txt,.json,.xml">
+<br>
+<p id="parTag">Paste JSON information here</p>
+<textarea name="text" id="text" rows="15" cols="50"></textarea>
+<br>
+<button id="fileSub" onclick="fileSub()">Use Data From File</button>
+<button id="textSub" onclick="textSub()">Use Data From Text Field</button>
+</div>
+
+</body>
+
