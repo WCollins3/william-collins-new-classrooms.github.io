@@ -233,6 +233,10 @@ function processFileContent(fileContent){
     createChart(gender, genderLabels, "Gender");
 
     //draw buttons
+    var genderButton = document.createElement("button");
+    genderButton.value = "Gender";
+    button.class = "gender"
+
     d3.select("body").append("button").attr("class", "gender").text("Gender");
     d3.select("body").append("button").attr("class", "firstNames").text("First Names");
     d3.select("body").append("button").attr("class", "lastNames").text("Last Names");
