@@ -198,7 +198,7 @@ function processFileContent(fileContent){
     console.log(firstNames);
     console.log(firstNamesLabels);
 
-    var lastNames = [data.lastNamesAM, data.lastNamesNZ];
+    var lastNames = [data.LastNamesAM, data.LastNamesNZ];
     var lastNamesLabels = ["A-M", "N-Z"];
     console.log(lastNames);
     console.log(lastNamesLabels);
@@ -245,7 +245,7 @@ function processFileContent(fileContent){
     for (var age in agesGroups){
         if(agesGroups.hasOwnProperty(age)){
             ageLabels.push(age);
-            ageCounts.push(age);
+            ageCounts.push(agesGroups);
         }
     }
     console.log(ageCounts);
