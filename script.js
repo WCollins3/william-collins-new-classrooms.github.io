@@ -167,7 +167,7 @@ function processFileContent(fileContent){
         {
             if (xmlhttp.readyState==4 && xmlhttp.status==200)
             {
-                alert(xmlhttp.responseText);
+                console.log(xmlhttp.responseText);
             }
         }
         xmlhttp.open("GET", theURL, false);
