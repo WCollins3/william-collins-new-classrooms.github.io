@@ -185,8 +185,14 @@ function processFileContent(fileContent){
         console.log(dataText)
     }
 
-    var data = JSON.parse(dataText)
+    var data = JSON.parse(dataText)[0]
     console.log(data)
+
+    var genders = [data.femalePercent, data.malePercent]
+    var genderLabels = ['Female', 'Male']
+    console.log(genders)
+    console.log(genderLabels)
+    
 
 
 
