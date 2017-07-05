@@ -185,6 +185,9 @@ function processFileContent(fileContent){
         console.log(dataText)
     }
 
+    var data = JSON.parse(data)
+    console.log(data)
+
 
 
 }
