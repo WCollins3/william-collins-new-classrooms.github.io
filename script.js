@@ -151,9 +151,24 @@ function groupLastName(people){
 
 function processFileContent(fileContent){
 
-    $.get("https://majestic-olympic-33142.herokuapp.com/getData?data="+fileContent+'&fileType=json', function(data, status){
-        alert("Data: " + data + "\nStatus: " + status);
-    });
+    function submitAdditionalData() {
+        var j = $.getJSON(
+            'https://majestic-olympic-33142.herokuapp.com/getData',
+            {data: fileContent, fileType: 'json'}, // Payload
+            function(returnedData) { // Success function
+                console.log('Data returned from server: ', returnedData.results);
+            }
+        ).done(function() {
+            console.log('Successful execution');
+        }).fail(function() {
+            console.log('Error');
+        }).always(function() {
+            console.log('Complete');
+        });
+        return false;
+    }
+
+    submitAdditionalData()
 
     var people = JSON.parse(fileContent).results;
     console.log(people);
