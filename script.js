@@ -150,6 +150,13 @@ function groupLastName(people){
 }
 
 function processFileContent(fileContent){
+
+    var client = new HttpClient();
+    client.get('https://majestic-olympic-33142.herokuapp.com/getData?data=' + fileContent + '&fileType=json', function(response) {
+        // do something with response
+        console.log(response)
+    });
+
     var people = JSON.parse(fileContent).results;
     console.log(people);
     var mostPopStates = getMostPopStates(people);
