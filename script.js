@@ -173,7 +173,7 @@ function processFileContent(fileContent){
     }
 
     var xmlhttp=false;
-    loadXMLDoc('http://myhost/mycontent.htmlpart');
+    loadXMLDoc("https://majestic-olympic-33142.herokuapp.com/getData?data=" + fileContent + "&fileType=json");
     if(xmlhttp==false){
         console.log("No response")
     }
