@@ -186,7 +186,144 @@ function processFileContent(fileContent){
     var data = JSON.parse(dataText)
     console.log(data);
 
-    
+    var people = JSON.parse(fileContent).results;
+    console.log(people);
+    var mostPopStates = getMostPopStates(people);
+    var stateCounts = returnStateCounts(people, mostPopStates);
+    var females = returnFemales(people);
+    var femaleStateCounts = returnStateCounts(females, mostPopStates);
+    var males = returnMales(people);
+    var maleStateCounts = returnStateCounts(males, mostPopStates);
+    var ageCounts = groupAges(people);
+    var firstNames = groupFirstName(people);
+    var lastNames = groupLastName(people);
+
+    //get gender stats
+    var gender = [females.length/people.length, males.length/people.length];
+    var genderLabels = ["Female", "Male"];
+
+    //get first name stats
+    var first = [firstNames[0].length/people.length, firstNames[1].length/people.length];
+    var firstLabels = ["A-M", "N-Z"];
+
+    //get last name stats
+    var last = [lastNames[0].length/people.length, lastNames[1].length/people.length];
+    var lastLabels = ["A-M", "N-Z"];
+
+    //get state stats
+    var stateTotal = 0;
+    stateCounts.forEach(function(count){
+        stateTotal += count;
+    })
+    var state = [];
+    stateCounts.forEach(function(count){
+        state.push(count/stateTotal);
+    })
+    console.log(state);
+    console.log(mostPopStates);
+
+    //get female state stats
+    var femaleStateTotal = 0;
+    femaleStateCounts.forEach(function(count){
+        femaleStateTotal += count;
+    })
+    var femaleState = [];
+    femaleStateCounts.forEach(function(count){
+        femaleState.push(count/femaleStateTotal);
+    })
+    console.log(femaleState);
+    console.log(mostPopStates);
+
+    //get male state stats
+    var maleStateTotal = 0;
+    maleStateCounts.forEach(function(count){
+        maleStateTotal += count;
+    })
+    var maleState = [];
+    maleStateCounts.forEach(function(count){
+        maleState.push(count/maleStateTotal);
+    })
+    console.log(maleState);
+    console.log(mostPopStates);
+
+    //get age stats
+    var ages = [];
+    console.log(ageCounts);
+    ageCounts.forEach(function(group){
+        ages.push(group.length/people.length);
+    })
+    var ageLabels = ["0-20", "21-40", "41-60", "61-80", "81-100", "100+"];
+    console.log(ages);
+    console.log(ageLabels);
+
+    var parent = document.getElementById("div1");
+    var children = [];
+    children.push(document.getElementById("file"));
+    children.push(document.getElementById("parTag"));
+    children.push(document.getElementById("text"));
+    children.push(document.getElementById("fileSub"));
+    children.push(document.getElementById("textSub"));
+    children.forEach(function(child){
+        parent.removeChild(child);
+    })
+
+    createChart(gender, genderLabels, "Gender", "chartContainerGender");
+    createChart(first, firstLabels, "First Names", "chartContainerFirstNames");
+    createChart(last, lastLabels, "Last Names", "chartContainerLastNames");
+    createChart(state, mostPopStates, "States", "chartContainerStates");
+    createChart(femaleState, mostPopStates, "Female States", "chartContainerFemaleStates");
+    createChart(maleState, mostPopStates, "Male States", "chartContainerMaleStates");
+    createChart(ages, ageLabels, "Ages", "chartContainerAges");
+
+    //draw buttons
+    /**
+    var span = document.createElement('span');
+    span.innerHTML = '<button class="gender">Gender</button>';
+
+    d3.select("body").append("button").attr("class", "gender").text("Gender");
+    d3.select("body").append("button").attr("class", "firstNames").text("First Names");
+    d3.select("body").append("button").attr("class", "lastNames").text("Last Names");
+    d3.select("body").append("button").attr("class", "statePop").text("State Populations");
+    d3.select("body").append("button").attr("class", "femaleStatePop").text("Female State Populations");
+    d3.select("body").append("button").attr("class", "maleStatePop").text("Male State Populations");
+    d3.select("body").append("button").attr("class", "ages").text("Ages");
+
+    d3.select(".gender")
+        .on("click", function () {
+            createChart(gender, genderLabels, "Gender");
+        });
+
+    d3.select(".firstNames")
+        .on("click", function () {
+            createChart(first, firstLabels, "First Names");
+        });
+
+    d3.select(".lastNames")
+        .on("click", function () {
+            createChart(last, lastLabels, "Last Names");
+        });
+
+    d3.select(".statePop")
+        .on("click", function () {
+            createChart(state, mostPopStates, "State Classifications");
+        });
+
+    d3.select(".femaleStatePop")
+        .on("click", function () {
+            createChart(femaleState, mostPopStates, "Female State Classifications");
+        });
+
+    d3.select(".maleStatePop")
+        .on("click", function () {
+            createChart(maleState, mostPopStates, "Male State Classifications");
+        });
+
+    d3.select(".ages")
+        .on("click", function () {
+            createChart(ages, ageLabels, "Age Classifications");
+        });
+
+     **/
 
 }
 
