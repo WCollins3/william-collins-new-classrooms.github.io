@@ -151,24 +151,36 @@ function groupLastName(people){
 
 function processFileContent(fileContent){
 
-    function submitAdditionalData() {
-        var j = $.getJSON(
-            'https://majestic-olympic-33142.herokuapp.com/getData',
-            {'data': fileContent, 'fileType': 'json'}, // Payload
-            function(returnedData) { // Success function
-                console.log('Data returned from server: ', returnedData.results);
+    function loadXMLDoc(theURL)
+    {
+        if (window.XMLHttpRequest)
+        {// code for IE7+, Firefox, Chrome, Opera, Safari, SeaMonkey
+            xmlhttp=new XMLHttpRequest();
+        }
+        else
+        {// code for IE6, IE5
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange=function()
+        {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200)
+            {
+                alert(xmlhttp.responseText);
             }
-        ).done(function() {
-            console.log('Successful execution');
-        }).fail(function() {
-            console.log('Error');
-        }).always(function() {
-            console.log('Complete');
-        });
-        return false;
+        }
+        xmlhttp.open("GET", theURL, false);
+        xmlhttp.send();
     }
 
-    submitAdditionalData()
+    var xmlhttp=false;
+    loadXMLDoc('http://myhost/mycontent.htmlpart');
+    if(xmlhttp==false){
+        console.log("No response")
+    }
+    else {
+        /* assign `xmlhttp.responseText` to some var */
+        console.log(xmlhttp.responseText)
+    }
 
     var people = JSON.parse(fileContent).results;
     console.log(people);
