@@ -33,7 +33,7 @@ function createChart(inputData, labels, headLabel, htmlElementID){
                 color: "#014D65",
                 dataPoints: formattedData
             }
-            ]
+        ]
 
     })
     this.chart.render();
@@ -151,8 +151,6 @@ function groupLastName(people){
 
 function processFileContent(fileContent){
 
-    console.log(fileContent)
-
     function loadXMLDoc(theURL)
     {
         if (window.XMLHttpRequest)
@@ -160,14 +158,14 @@ function processFileContent(fileContent){
             xmlhttp=new XMLHttpRequest();
         }
         else
-        {// code for IE6, IE 5
+        {// code for IE6, IE5
             xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
         }
         xmlhttp.onreadystatechange=function()
         {
             if (xmlhttp.readyState==4 && xmlhttp.status==200)
             {
-                console.log(xmlhttp.responseText);
+                alert(xmlhttp.responseText);
             }
         }
         xmlhttp.open("GET", theURL, false);
@@ -175,7 +173,7 @@ function processFileContent(fileContent){
     }
 
     var xmlhttp=false;
-    loadXMLDoc("https://majestic-olympic-33142.herokuapp.com/getData?data=" + fileContent + "&fileType=");
+    loadXMLDoc("https://majestic-olympic-33142.herokuapp.com/getData?data=" + fileContent + "&fileType=json");
     if(xmlhttp==false){
         console.log("No response")
     }
@@ -183,10 +181,6 @@ function processFileContent(fileContent){
         /* assign `xmlhttp.responseText` to some var */
         console.log(xmlhttp.responseText)
     }
-    dataText = xmlhttp.responseText
-
-    var data = JSON.parse(dataText)
-    console.log(data);
 
     var people = JSON.parse(fileContent).results;
     console.log(people);
@@ -279,49 +273,49 @@ function processFileContent(fileContent){
 
     //draw buttons
     /**
-    var span = document.createElement('span');
-    span.innerHTML = '<button class="gender">Gender</button>';
+     var span = document.createElement('span');
+     span.innerHTML = '<button class="gender">Gender</button>';
 
-    d3.select("body").append("button").attr("class", "gender").text("Gender");
-    d3.select("body").append("button").attr("class", "firstNames").text("First Names");
-    d3.select("body").append("button").attr("class", "lastNames").text("Last Names");
-    d3.select("body").append("button").attr("class", "statePop").text("State Populations");
-    d3.select("body").append("button").attr("class", "femaleStatePop").text("Female State Populations");
-    d3.select("body").append("button").attr("class", "maleStatePop").text("Male State Populations");
-    d3.select("body").append("button").attr("class", "ages").text("Ages");
+     d3.select("body").append("button").attr("class", "gender").text("Gender");
+     d3.select("body").append("button").attr("class", "firstNames").text("First Names");
+     d3.select("body").append("button").attr("class", "lastNames").text("Last Names");
+     d3.select("body").append("button").attr("class", "statePop").text("State Populations");
+     d3.select("body").append("button").attr("class", "femaleStatePop").text("Female State Populations");
+     d3.select("body").append("button").attr("class", "maleStatePop").text("Male State Populations");
+     d3.select("body").append("button").attr("class", "ages").text("Ages");
 
-    d3.select(".gender")
-        .on("click", function () {
+     d3.select(".gender")
+     .on("click", function () {
             createChart(gender, genderLabels, "Gender");
         });
 
-    d3.select(".firstNames")
-        .on("click", function () {
+     d3.select(".firstNames")
+     .on("click", function () {
             createChart(first, firstLabels, "First Names");
         });
 
-    d3.select(".lastNames")
-        .on("click", function () {
+     d3.select(".lastNames")
+     .on("click", function () {
             createChart(last, lastLabels, "Last Names");
         });
 
-    d3.select(".statePop")
-        .on("click", function () {
+     d3.select(".statePop")
+     .on("click", function () {
             createChart(state, mostPopStates, "State Classifications");
         });
 
-    d3.select(".femaleStatePop")
-        .on("click", function () {
+     d3.select(".femaleStatePop")
+     .on("click", function () {
             createChart(femaleState, mostPopStates, "Female State Classifications");
         });
 
-    d3.select(".maleStatePop")
-        .on("click", function () {
+     d3.select(".maleStatePop")
+     .on("click", function () {
             createChart(maleState, mostPopStates, "Male State Classifications");
         });
 
-    d3.select(".ages")
-        .on("click", function () {
+     d3.select(".ages")
+     .on("click", function () {
             createChart(ages, ageLabels, "Age Classifications");
         });
 
