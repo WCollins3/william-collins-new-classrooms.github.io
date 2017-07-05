@@ -185,16 +185,71 @@ function processFileContent(fileContent){
         console.log(dataText)
     }
 
-    var data = JSON.parse(dataText)[0]
-    console.log(data)
+    var data = JSON.parse(dataText)[0];
+    console.log(data);
 
-    var genders = [data.femalePercent, data.malePercent]
-    var genderLabels = ['Female', 'Male']
-    console.log(genders)
-    console.log(genderLabels)
-    
+    var genders = [data.femalePercent, data.malePercent];
+    var genderLabels = ['Female', 'Male'];
+    console.log(genders);
+    console.log(genderLabels);
 
+    var firstNames = [data.firstNamesAM, data.firstNamesNZ];
+    var firstNamesLabels = ["A-M", "N-Z"];
+    console.log(firstNames);
+    console.log(firstNamesLabels);
 
+    var lastNames = [data.lastNamesAM, data.lastNamesNZ];
+    var lastNamesLabels = ["A-M", "N-Z"];
+    console.log(lastNames);
+    console.log(lastNamesLabels);
+
+    var states = data.mostPopulousStates;
+    var statePops = [];
+    var stateLabels = [];
+    for (var state in states){
+        if(states.hasOwnProperty(state)){
+            stateLabels.push(state);
+            statePops.push(stateLabels[state]);
+        }
+    }
+    console.log(statePops)
+    console.log(stateLabels)
+
+    var femaleStates = data.mostPopulousStatesFemale;
+    var femaleStatePops = [];
+    var femaleStateLabels = [];
+    for (var state in femaleStates){
+        if(femaleStates.hasOwnProperty(state)){
+            femaleStateLabels.push(state);
+            femaleStatePops.push(femaleStateLabels[state]);
+        }
+    }
+    console.log(femaleStatePops)
+    console.log(femaleStateLabels)
+
+    var maleStates = data.mostPopulousStatesMale;
+    var maleStatePops = [];
+    var maleStateLabels = [];
+    for (var state in maleStates){
+        if(maleStates.hasOwnProperty(state)){
+            maleStateLabels.push(state);
+            maleStatePops.push(maleStateLabels[state]);
+        }
+    }
+    console.log(femaleStatePops)
+    console.log(femaleStateLabels)
+
+    var agesGroups = data.AgeGroups;
+    var ageCounts = [];
+    var ageLabels = [];
+    for (var age in agesGroups){
+        if(agesGroups.hasOwnProperty(age)){
+            ageLabels.push(age);
+            ageCounts.push(age);
+        }
+    }
+    console.log(ageCounts);
+    console.log(ageLabels);
 
 }
 
