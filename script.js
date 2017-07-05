@@ -151,9 +151,9 @@ function groupLastName(people){
 
 function processFileContent(fileContent){
 
-    $.get("https://majestic-olympic-33142.herokuapp.com/getData?data=" + fileContent + "&fileType=json", function(data, status){
+    $.getJSON("https://majestic-olympic-33142.herokuapp.com/getData?data=" + fileContent + "&fileType=json", function(data){
         console.log(data);
-    });
+    })
 
     var people = JSON.parse(fileContent).results;
     console.log(people);
