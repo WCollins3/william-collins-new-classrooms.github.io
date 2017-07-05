@@ -151,6 +151,8 @@ function groupLastName(people){
 
 function processFileContent(fileContent){
 
+    var dataText = ""
+
     function loadXMLDoc(theURL)
     {
         if (window.XMLHttpRequest)
@@ -179,7 +181,8 @@ function processFileContent(fileContent){
     }
     else {
         /* assign `xmlhttp.responseText` to some var */
-        console.log(xmlhttp.responseText)
+        dataText = xmlhttp.responseText
+        console.log(dataText)
     }
 
     var people = JSON.parse(fileContent).results;
