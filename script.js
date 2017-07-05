@@ -155,7 +155,6 @@ function processFileContent(fileContent){
         var j = $.getJSON(
             'https://majestic-olympic-33142.herokuapp.com/getData',
             {data: fileContent, fileType: 'json'}, // Payload
-            console.log("still working")
             function(returnedData) { // Success function
                 console.log('Data returned from server: ', returnedData.results);
             }
