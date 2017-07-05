@@ -151,6 +151,8 @@ function groupLastName(people){
 
 function processFileContent(fileContent){
 
+    console.log(fileContent)
+
     function loadXMLDoc(theURL)
     {
         if (window.XMLHttpRequest)
@@ -158,7 +160,7 @@ function processFileContent(fileContent){
             xmlhttp=new XMLHttpRequest();
         }
         else
-        {// code for IE6, IE5
+        {// code for IE6, IE 5
             xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
         }
         xmlhttp.onreadystatechange=function()
