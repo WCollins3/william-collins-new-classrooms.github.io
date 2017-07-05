@@ -243,6 +243,25 @@ function processFileContent(fileContent){
     console.log(ageCounts);
     console.log(ageLabels);
 
+    var parent = document.getElementById("div1");
+    var children = [];
+    children.push(document.getElementById("file"));
+    children.push(document.getElementById("parTag"));
+    children.push(document.getElementById("text"));
+    children.push(document.getElementById("fileSub"));
+    children.push(document.getElementById("textSub"));
+    children.forEach(function(child){
+        parent.removeChild(child);
+    })
+
+    createChart(genders, genderLabels, "Gender", "chartContainerGender");
+    createChart(firstNames, firstNamesLabels, "First Names", "chartContainerFirstNames");
+    createChart(lastNames, lastNamesLabels, "Last Names", "chartContainerLastNames");
+    createChart(statePops, stateLabels, "State Populations", "chartContainerStates");
+    createChart(femaleStatePops, femaleStateLabels, "State Populations (Female)", "chartContainerFemaleStates");
+    createChart(maleStatePops, maleStateLabels, "State Populations (Male)", "chartContainerMaleStates");
+    createChart(ageCounts, ageLabels, "Ages", "chartContainerAges");
+
 }
 
 function fileSub(){
