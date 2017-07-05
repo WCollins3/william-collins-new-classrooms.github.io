@@ -206,48 +206,40 @@ function processFileContent(fileContent){
     var states = data.mostPopulousStates;
     var statePops = [];
     var stateLabels = [];
-    for (var state in states){
-        if(states.hasOwnProperty(state)){
-            stateLabels.push(state);
-            statePops.push(stateLabels[state]);
-        }
-    }
+    Object.keys(states).forEach(function(key){
+        statePops.push(states[key]);
+        stateLabels.push(key);
+    })
     console.log(statePops)
     console.log(stateLabels)
 
     var femaleStates = data.mostPopulousStatesFemale;
     var femaleStatePops = [];
     var femaleStateLabels = [];
-    for (var state in femaleStates){
-        if(femaleStates.hasOwnProperty(state)){
-            femaleStateLabels.push(state);
-            femaleStatePops.push(femaleStateLabels[state]);
-        }
-    }
+    Object.keys(femaleStates).forEach(function(key){
+        femaleStatePops.push(femaleStates[key]);
+        femaleStateLabels.push(key);
+    })
     console.log(femaleStatePops)
     console.log(femaleStateLabels)
 
     var maleStates = data.mostPopulousStatesMale;
     var maleStatePops = [];
     var maleStateLabels = [];
-    for (var state in maleStates){
-        if(maleStates.hasOwnProperty(state)){
-            maleStateLabels.push(state);
-            maleStatePops.push(maleStateLabels[state]);
-        }
-    }
-    console.log(femaleStatePops)
-    console.log(femaleStateLabels)
+    Object.keys(maleStates).forEach(function(key){
+        maleStatePops.push(maleStates[key]);
+        maleStateLabels.push(key);
+    })
+    console.log(maleStatePops)
+    console.log(maleStateLabels)
 
     var agesGroups = data.AgeGroups;
     var ageCounts = [];
     var ageLabels = [];
-    for (var age in agesGroups){
-        if(agesGroups.hasOwnProperty(age)){
-            ageLabels.push(age);
-            ageCounts.push(agesGroups);
-        }
-    }
+    Object.keys(agesGroups).forEach(function(key){
+        ageCounts.push(agesGroups[key]);
+        ageLabels.push(key);
+    })
     console.log(ageCounts);
     console.log(ageLabels);
 
