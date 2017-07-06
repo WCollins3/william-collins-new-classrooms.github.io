@@ -158,6 +158,7 @@ function getEssentialData(fileContent){
         newPerson.gender = person.gender;
         newPerson.name = person.name;
         newPerson.dob = person.dob;
+        newPerson.location.state = newPerson.location.state
         newContent.results.push(newPerson);
     })
     console.log(newContent);
