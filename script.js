@@ -214,6 +214,11 @@ function processFileContent(fileContent){
         var data = JSON.parse(dataText)[0];
         console.log(data)
     }
+    else{
+        var people = JSON.parse(fileContent).results;
+        var mostPopStates = getMostPopStates(people);
+        
+    }
 
 
     var genders = [data.femalePercent, data.malePercent];
