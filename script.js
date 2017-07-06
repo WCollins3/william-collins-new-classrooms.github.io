@@ -234,6 +234,8 @@ function processFileContent(fileContent){
 
     var genders = [data.femalePercent, data.malePercent];
     var genderLabels = ['Female', 'Male'];
+    console.log(genders);
+    console.log(genderLabels);
 
 
     var firstNames = [data.firstNamesAM, data.firstNamesNZ];
