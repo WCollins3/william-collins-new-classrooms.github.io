@@ -77,7 +77,7 @@ function getMostPopStates(people){
 }
 
 
-function returnFemales(people){
+function getFemales(people){
     var females = []
     people.forEach(function(person){
         var gender = person.gender;
@@ -88,7 +88,7 @@ function returnFemales(people){
     return females;
 }
 
-function returnMales(people){
+function getMales(people){
     var males = []
     people.forEach(function(person){
         var gender = person.gender;
@@ -116,7 +116,7 @@ function groupAges(people){
     return ages;
 }
 
-function groupFirstName(people){
+function getFirstNames(people){
     var firstNames = [[], []];
     var nCharCode = "n".charCodeAt(0);
     people.forEach(function(person){
@@ -131,7 +131,7 @@ function groupFirstName(people){
     return firstNames;
 }
 
-function groupLastName(people){
+function getLastNames(people){
     var lastNames = [[], []];
     var nCharCode = "n".charCodeAt(0);
     people.forEach(function(person){
@@ -177,7 +177,7 @@ function processFileContent(fileContent){
 
     var dataText = "";
 
-    var data;
+    var data = {};
 
     if (stringSize < 7900) {
 
@@ -213,7 +213,18 @@ function processFileContent(fileContent){
     }
     else{
         var people = JSON.parse(fileContent).results;
+        var females = getFemales(people)
+        var males = getMales(people);
+        var firstNames = getFirstNames(people);
+        var lastNames = getLastNames(people);
         var mostPopStates = getMostPopStates(people);
+        var mostPopStatesFemale = getMostPopStates(females);
+        var mostPopStatesMale = getMostPopStates(males);
+
+        data.femalePercent = (females.length / people.length) * 100
+        data.malePercent = (females.length / people.length) * 100
+
+
 
     }
 
