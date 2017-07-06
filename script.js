@@ -101,6 +101,7 @@ function getMales(people){
 
 function groupAges(people){
     var ages = [0,0,0,0,0,0]
+    var ageLabels = ["0-20", "21-40", "41-60", "61-80", "81-100", "100+"]
     people.forEach(function(person){
         var birth = new Date(person.dob.toString()).getTime();
         var ageDay = Date.now() - birth;
@@ -113,7 +114,11 @@ function groupAges(people){
             ages[5].push += 1;
         }
     })
-    return ages;
+    ageGroups = {};
+    for(i =0; i < ages.length; i++){
+        ageGroups[ageLabels[i]] = ages[i];
+    }
+    return ageGroups;
 }
 
 function getFirstNames(people){
