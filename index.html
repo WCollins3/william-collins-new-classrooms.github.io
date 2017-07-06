@@ -8,7 +8,7 @@
     function get100Users(){
         var people;
         $.ajax({
-            url: 'https://randomuser.me/api/',
+            url: 'https://randomuser.me/api/?results=100',
             dataType: 'json',
             success: function(data) {
                 people = data;
