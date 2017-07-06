@@ -166,48 +166,55 @@ function getEssentialData(fileContent){
 
 }
 
+function byteCount(s) {
+    return encodeURI(s).split(/%..|./).length - 1;
+}
+
 function processFileContent(fileContent){
 
     var essentialDataString = getEssentialData(fileContent);
+
+    var stringSize = byteCount(essentialDataString);
 
     console.log(essentialDataString);
 
     var dataText = "";
 
-    function loadXMLDoc(theURL)
-    {
-        if (window.XMLHttpRequest)
-        {// code for IE7+, Firefox, Chrome, Opera, Safari, SeaMonkey
-            xmlhttp=new XMLHttpRequest();
-        }
-        else
-        {// code for IE6, IE5
-            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange=function()
-        {
-            if (xmlhttp.readyState==4 && xmlhttp.status==200)
-            {
-                console.log(xmlhttp.responseText);
+    var data;
+
+    if (stringSize < 7900) {
+
+
+        function loadXMLDoc(theURL) {
+            if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari, SeaMonkey
+                xmlhttp = new XMLHttpRequest();
             }
+            else {// code for IE6, IE5
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    console.log(xmlhttp.responseText);
+                }
+            }
+            xmlhttp.open("GET", theURL, false);
+            xmlhttp.send();
         }
-        xmlhttp.open("GET", theURL, false);
-        xmlhttp.send();
+
+        var xmlhttp = false;
+        loadXMLDoc("https://majestic-olympic-33142.herokuapp.com/getData?data=" + essentialDataString + "&fileType=json");
+        if (xmlhttp == false) {
+            console.log("No response")
+        }
+        else {
+            /* assign `xmlhttp.responseText` to some var */
+            dataText = xmlhttp.responseText
+            console.log(dataText)
+        }
+        var data = JSON.parse(dataText)[0];
+        console.log(data)
     }
 
-    var xmlhttp=false;
-    loadXMLDoc("https://majestic-olympic-33142.herokuapp.com/getData?data=" + essentialDataString + "&fileType=json");
-    if(xmlhttp==false){
-        console.log("No response")
-    }
-    else {
-        /* assign `xmlhttp.responseText` to some var */
-        dataText = xmlhttp.responseText
-        console.log(dataText)
-    }
-
-    var data = JSON.parse(dataText)[0];
-    console.log(data);
 
     var genders = [data.femalePercent, data.malePercent];
     var genderLabels = ['Female', 'Male'];
