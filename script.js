@@ -185,7 +185,6 @@ function getLastNames(people){
 // Returns string to be sent to API
 function getEssentialData(fileContent){
     content = JSON.parse(fileContent).results;
-    console.log(content)
     var newContent = {results: []};
     content.forEach(function(person){
         var newPerson = {}
@@ -215,7 +214,6 @@ function getEssentialData(fileContent){
         }
         newContent.results.push(newPerson);
     })
-    console.log(newContent);
     return JSON.stringify(newContent)
 }
 
@@ -382,7 +380,6 @@ function getUsers(amount){
         dataType: 'json',
         success: function(data) {
             people += JSON.stringify(data)
-            console.log(people)
             document.getElementById("text").value = people;
         }
     });
