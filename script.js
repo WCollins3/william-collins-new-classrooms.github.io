@@ -44,7 +44,7 @@ function getMostPopStates(people){
     var states = [];
     var counts = [];
     people.forEach(function(person){
-        try {
+        try { //Try: Get state
             var state = person.location.state
             if (!(state in states)) {
                 states.push(state);
@@ -52,7 +52,7 @@ function getMostPopStates(people){
             }
             counts[states.indexOf(state)] += 1;
         }
-        catch (err){
+        catch (err){ //Catch: No State
             console.log("Person Missing Location.State");
         }
     })
@@ -84,13 +84,13 @@ function getMostPopStates(people){
 function getFemales(people){
     var females = []
     people.forEach(function(person){
-        try {
+        try { //Try: Get gender
             var gender = person.gender;
             if (gender == "female") {
                 females.push(person);
             }
         }
-        catch (err){
+        catch (err){ //Catch: No gender
             console.log("Person Missing Gender");
         }
     })
@@ -100,13 +100,13 @@ function getFemales(people){
 function getMales(people){
     var males = []
     people.forEach(function(person){
-        try {
+        try {//Try: Get gender
             var gender = person.gender;
             if (gender == "male") {
                 males.push(person);
             }
         }
-        catch (err){
+        catch (err){//Catch: No gender
             console.log("Person Missing Gender");
         }
     })
@@ -117,7 +117,7 @@ function groupAges(people){
     var ages = [0,0,0,0,0,0]
     var ageLabels = ["0-20", "21-40", "41-60", "61-80", "81-100", "100+"]
     people.forEach(function(person){
-        try {
+        try { //Try: Get DOB
             var birth = new Date(person.dob.toString()).getTime();
             var ageDay = Date.now() - birth;
             var ageMill = new Date(ageDay);
@@ -129,7 +129,7 @@ function groupAges(people){
                 ages[5].push += 1;
             }
         }
-        catch (err){
+        catch (err){ //Catch: No DOB
             console.log("Person Missing Date of Birth");
         }
     })
@@ -144,7 +144,7 @@ function getFirstNames(people){
     var firstNames = [[], []];
     var nCharCode = "n".charCodeAt(0);
     people.forEach(function(person){
-        try {
+        try { //Try: Get First Name
             var name = person.name.first.toLowerCase();
             var letter = name.charCodeAt(0);
             if (letter < nCharCode) {
@@ -153,7 +153,7 @@ function getFirstNames(people){
                 firstNames[1].push(person)
             }
         }
-        catch (err){
+        catch (err){ //Catch: No First Name
             console.log("Person Missing First Name");
         }
     })
@@ -164,7 +164,7 @@ function getLastNames(people){
     var lastNames = [[], []];
     var nCharCode = "n".charCodeAt(0);
     people.forEach(function(person){
-        try {
+        try { //Try: Get Last Name
             var name = person.name.last.toLowerCase();
             var letter = name.charCodeAt(0);
             if (letter < nCharCode) {
@@ -173,32 +173,34 @@ function getLastNames(people){
                 lastNames[1].push(person)
             }
         }
-        catch (err){
+        catch (err){//Catch: No Last Name
             console.log("Person Missing Last Name");
         }
     })
     return lastNames;
 }
 
+// Pulls out data only essential to this project (gender, name, DOB, location)
+// Returns string to be sent to API
 function getEssentialData(fileContent){
     content = JSON.parse(fileContent).results;
     console.log(content)
     var newContent = {results: []};
     content.forEach(function(person){
         var newPerson = {}
-        try {
+        try { //Try: Get Gender
             newPerson.gender = person.gender;
         }
         catch (err){
             console.log("Person Missing Gender");
         }
-        try {
+        try { //Try: Get Name
             newPerson.name = person.name;
         }
         catch (err){
             console.log("Person Missing Name");
         }
-        try {
+        try { //Try: Get DOB
             newPerson.dob = person.dob;
         }
         catch (err){
@@ -207,7 +209,7 @@ function getEssentialData(fileContent){
         try {
             newPerson.location = person.location;
         }
-        catch (err){
+        catch (err){ //Try: Get Location
             console.log("Person Missing location");
         }
         newContent.results.push(newPerson);
@@ -217,26 +219,28 @@ function getEssentialData(fileContent){
 
 }
 
-function byteCount(s) {
+// Returns String size
+function getByteCountOfString(s) {
     return encodeURI(s).split(/%..|./).length - 1;
 }
 
+//------Functions Linked to Buttons -----
+
 function processFileContent(fileContent){
 
-    var essentialDataString = getEssentialData(fileContent);
-    var stringSize = byteCount(essentialDataString);
-
+    var essentialDataString = getEssentialData(fileContent); // Data essential to this project
+    var stringSize = getByteCountOfString(essentialDataString); // Size of data string
     var dataText = "";
     var data = {};
 
-    if (stringSize < 7900) {
+    if (stringSize < 7900) { //If the data can fit into a GET request
         console.log("API call")
 
         function loadXMLDoc(theURL) {
-            if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari, SeaMonkey
+            if (window.XMLHttpRequest) {// IE7 and up, Firefox, Chrome, Opera
                 xmlhttp = new XMLHttpRequest();
             }
-            else {// code for IE6, IE5
+            else {// IE6, IE5
                 xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
             }
             xmlhttp.onreadystatechange = function () {
@@ -251,17 +255,17 @@ function processFileContent(fileContent){
         var xmlhttp = false;
         loadXMLDoc("https://majestic-olympic-33142.herokuapp.com/getData?data=" + essentialDataString + "&fileType=json");
         if (xmlhttp == false) {
-            console.log("No response")
+            console.log("Did not receive from API")
         }
         else {
-            /* assign `xmlhttp.responseText` to some var */
             dataText = xmlhttp.responseText
         }
         var data = JSON.parse(dataText)[0];
     }
-    else{
+    else{ // Data will not fit into an API call. Use internal functions instead
         console.log("Internal Functions")
 
+        // Get information from internal functions
         var people = JSON.parse(fileContent).results;
         var females = getFemales(people)
         var males = getMales(people);
@@ -272,6 +276,7 @@ function processFileContent(fileContent){
         var mostPopStatesMale = getMostPopStates(males);
         var ageGroups = groupAges(people);
 
+        // Put information into data object
         data.femalePercent = (females.length / people.length) * 100;
         data.malePercent = (males.length / people.length) * 100;
         data.firstNamesAM = (firstNames[0].length / people.length) * 100;
@@ -285,19 +290,15 @@ function processFileContent(fileContent){
 
     }
 
-    console.log(data);
-
+    //Process information for charts
     var genders = [data.femalePercent, data.malePercent];
     var genderLabels = ['Female', 'Male'];
-
 
     var firstNames = [data.firstNamesAM, data.firstNamesNZ];
     var firstNamesLabels = ["A-M", "N-Z"];
 
-
     var lastNames = [data.lastNamesAM, data.lastNamesNZ];
     var lastNamesLabels = ["A-M", "N-Z"];
-
 
     var states = data.mostPopulousStates;
     var statePops = [];
@@ -307,7 +308,6 @@ function processFileContent(fileContent){
         stateLabels.push(key);
     })
 
-
     var femaleStates = data.mostPopulousStatesFemale;
     var femaleStatePops = [];
     var femaleStateLabels = [];
@@ -315,7 +315,6 @@ function processFileContent(fileContent){
         femaleStatePops.push(femaleStates[key]);
         femaleStateLabels.push(key);
     })
-
 
     var maleStates = data.mostPopulousStatesMale;
     var maleStatePops = [];
@@ -325,7 +324,6 @@ function processFileContent(fileContent){
         maleStateLabels.push(key);
     })
 
-
     var agesGroups = data.AgeGroups;
     var ageCounts = [];
     var ageLabels = [];
@@ -334,7 +332,7 @@ function processFileContent(fileContent){
         ageLabels.push(key);
     })
 
-
+    // remove data-entry elements
     var parent = document.getElementById("div1");
     var children = [];
     children.push(document.getElementById("file"));
@@ -342,10 +340,13 @@ function processFileContent(fileContent){
     children.push(document.getElementById("text"));
     children.push(document.getElementById("fileSub"));
     children.push(document.getElementById("textSub"));
+    children.push(document.getElementById("get25Users"));
+    children.push(document.getElementById("get100Users"));
     children.forEach(function(child){
         parent.removeChild(child);
     })
 
+    // create charts
     createChart(genders, genderLabels, "Gender", "chartContainerGender");
     createChart(firstNames, firstNamesLabels, "First Names", "chartContainerFirstNames");
     createChart(lastNames, lastNamesLabels, "Last Names", "chartContainerLastNames");
