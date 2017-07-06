@@ -246,7 +246,7 @@ function processFileContent(fileContent){
     console.log(firstNames);
     console.log(firstNamesLabels);
 
-    var lastNames = [data.LastNamesAM, data.LastNamesNZ];
+    var lastNames = [data.lastNamesAM, data.lastNamesNZ];
     var lastNamesLabels = ["A-M", "N-Z"];
     console.log(lastNames);
     console.log(lastNamesLabels);
