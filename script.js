@@ -1,3 +1,5 @@
+//------Functions used to generate data -----
+
 function createChart(inputData, labels, headLabel, htmlElementID){ //Credit: CanvasJS.com
     document.getElementById(htmlElementID).setAttribute("style", "height: 300px; width: 100%;");
     this.formattedData = []
@@ -79,7 +81,6 @@ function getMostPopStates(people){
     }
     return stateCounts;
 }
-
 
 function getFemales(people){
     var females = []
@@ -216,10 +217,9 @@ function getEssentialData(fileContent){
     })
     console.log(newContent);
     return JSON.stringify(newContent)
-
 }
 
-// Returns String size
+// Returns String size in bytes
 function getByteCountOfString(s) {
     return encodeURI(s).split(/%..|./).length - 1;
 }
@@ -227,7 +227,6 @@ function getByteCountOfString(s) {
 //------Functions Linked to Buttons -----
 
 function processFileContent(fileContent){
-
     var essentialDataString = getEssentialData(fileContent); // Data essential to this project
     var stringSize = getByteCountOfString(essentialDataString); // Size of data string
     var dataText = "";
@@ -236,6 +235,7 @@ function processFileContent(fileContent){
     if (stringSize < 7900) { //If the data can fit into a GET request
         console.log("API call")
 
+        // Call API as web page
         function loadXMLDoc(theURL) {
             if (window.XMLHttpRequest) {// IE7 and up, Firefox, Chrome, Opera
                 xmlhttp = new XMLHttpRequest();
@@ -252,12 +252,13 @@ function processFileContent(fileContent){
             xmlhttp.send();
         }
 
+        //use function to call api as web page
         var xmlhttp = false;
         loadXMLDoc("https://majestic-olympic-33142.herokuapp.com/getData?data=" + essentialDataString + "&fileType=json");
-        if (xmlhttp == false) {
+        if (xmlhttp == false) { //If variable hasn't changed
             console.log("Did not receive from API")
         }
-        else {
+        else { //If variable has changed, set dataText
             dataText = xmlhttp.responseText
         }
         var data = JSON.parse(dataText)[0];
@@ -290,7 +291,7 @@ function processFileContent(fileContent){
 
     }
 
-    //Process information for charts
+    //--Process information for charts--
     var genders = [data.femalePercent, data.malePercent];
     var genderLabels = ['Female', 'Male'];
 
@@ -332,7 +333,7 @@ function processFileContent(fileContent){
         ageLabels.push(key);
     })
 
-    // remove data-entry elements
+    //--remove data-entry elements--
     var parent = document.getElementById("div1");
     var children = [];
     children.push(document.getElementById("file"));
@@ -346,7 +347,7 @@ function processFileContent(fileContent){
         parent.removeChild(child);
     })
 
-    // create charts
+    //--create charts--
     createChart(genders, genderLabels, "Gender", "chartContainerGender");
     createChart(firstNames, firstNamesLabels, "First Names", "chartContainerFirstNames");
     createChart(lastNames, lastNamesLabels, "Last Names", "chartContainerLastNames");
@@ -354,7 +355,6 @@ function processFileContent(fileContent){
     createChart(femaleStatePops, femaleStateLabels, "State Populations (Female)", "chartContainerFemaleStates");
     createChart(maleStatePops, maleStateLabels, "State Populations (Male)", "chartContainerMaleStates");
     createChart(ageCounts, ageLabels, "Ages", "chartContainerAges");
-
 }
 
 function fileSub(){
