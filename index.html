@@ -12,7 +12,7 @@
             dataType: 'json',
             success: function(data) {
                 console.log(data)
-                people += String(data)
+                people += JSON.stringify(data)
             }
         });
         console.log(people)
