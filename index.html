@@ -11,8 +11,8 @@
             url: 'https://randomuser.me/api/',
             dataType: 'json',
             success: function(data) {
-                console.log(data)
                 people += JSON.stringify(data)
+                console.log(people)
             }
         });
         console.log(people)
