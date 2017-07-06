@@ -44,12 +44,17 @@ function getMostPopStates(people){
     var states = [];
     var counts = [];
     people.forEach(function(person){
-        var state = person.location.state
-        if(!(state in states)){
-            states.push(state);
-            counts.push(0);
+        try {
+            var state = person.location.state
+            if (!(state in states)) {
+                states.push(state);
+                counts.push(0);
+            }
+            counts[states.indexOf(state)] += 1;
         }
-        counts[states.indexOf(state)] += 1;
+        catch (err){
+            console.log("Person Missing Location.State");
+        }
     })
     if(states.length < 10){
         for (i = 0; i < states.length; i++){
@@ -79,9 +84,14 @@ function getMostPopStates(people){
 function getFemales(people){
     var females = []
     people.forEach(function(person){
-        var gender = person.gender;
-        if(gender == "female"){
-            females.push(person);
+        try {
+            var gender = person.gender;
+            if (gender == "female") {
+                females.push(person);
+            }
+        }
+        catch (err){
+            console.log("Person Missing Gender");
         }
     })
     return females;
@@ -90,9 +100,14 @@ function getFemales(people){
 function getMales(people){
     var males = []
     people.forEach(function(person){
-        var gender = person.gender;
-        if(gender == "male"){
-            males.push(person);
+        try {
+            var gender = person.gender;
+            if (gender == "male") {
+                males.push(person);
+            }
+        }
+        catch (err){
+            console.log("Person Missing Gender");
         }
     })
     return males;
@@ -102,15 +117,20 @@ function groupAges(people){
     var ages = [0,0,0,0,0,0]
     var ageLabels = ["0-20", "21-40", "41-60", "61-80", "81-100", "100+"]
     people.forEach(function(person){
-        var birth = new Date(person.dob.toString()).getTime();
-        var ageDay = Date.now() - birth;
-        var ageMill = new Date(ageDay);
-        var age = ageMill.getUTCFullYear() - 1970;
-        var placement = Math.floor(age/20);
-        if(placement < 120) {
-            ages[placement] += 1;
-        }else{
-            ages[5].push += 1;
+        try {
+            var birth = new Date(person.dob.toString()).getTime();
+            var ageDay = Date.now() - birth;
+            var ageMill = new Date(ageDay);
+            var age = ageMill.getUTCFullYear() - 1970;
+            var placement = Math.floor(age / 20);
+            if (placement < 120) {
+                ages[placement] += 1;
+            } else {
+                ages[5].push += 1;
+            }
+        }
+        catch (err){
+            console.log("Person Missing Date of Birth");
         }
     })
     ageGroups = {};
@@ -124,12 +144,17 @@ function getFirstNames(people){
     var firstNames = [[], []];
     var nCharCode = "n".charCodeAt(0);
     people.forEach(function(person){
-        var name = person.name.first.toLowerCase();
-        var letter = name.charCodeAt(0);
-        if(letter < nCharCode){
-            firstNames[0].push(person)
-        }else{
-            firstNames[1].push(person)
+        try {
+            var name = person.name.first.toLowerCase();
+            var letter = name.charCodeAt(0);
+            if (letter < nCharCode) {
+                firstNames[0].push(person)
+            } else {
+                firstNames[1].push(person)
+            }
+        }
+        catch (err){
+            console.log("Person Missing First Name");
         }
     })
     return firstNames;
@@ -139,12 +164,17 @@ function getLastNames(people){
     var lastNames = [[], []];
     var nCharCode = "n".charCodeAt(0);
     people.forEach(function(person){
-        var name = person.name.last.toLowerCase();
-        var letter = name.charCodeAt(0);
-        if(letter < nCharCode){
-            lastNames[0].push(person)
-        }else{
-            lastNames[1].push(person)
+        try {
+            var name = person.name.last.toLowerCase();
+            var letter = name.charCodeAt(0);
+            if (letter < nCharCode) {
+                lastNames[0].push(person)
+            } else {
+                lastNames[1].push(person)
+            }
+        }
+        catch (err){
+            console.log("Person Missing Last Name");
         }
     })
     return lastNames;
