@@ -170,13 +170,9 @@ function byteCount(s) {
 function processFileContent(fileContent){
 
     var essentialDataString = getEssentialData(fileContent);
-
     var stringSize = byteCount(essentialDataString);
 
-    console.log(essentialDataString);
-
     var dataText = "";
-
     var data = {};
 
     if (stringSize < 7900) {
@@ -206,10 +202,8 @@ function processFileContent(fileContent){
         else {
             /* assign `xmlhttp.responseText` to some var */
             dataText = xmlhttp.responseText
-            console.log(dataText)
         }
         var data = JSON.parse(dataText)[0];
-        console.log(data)
     }
     else{
         console.log("Internal Functions")
@@ -240,18 +234,15 @@ function processFileContent(fileContent){
 
     var genders = [data.femalePercent, data.malePercent];
     var genderLabels = ['Female', 'Male'];
-    console.log(genders);
-    console.log(genderLabels);
+
 
     var firstNames = [data.firstNamesAM, data.firstNamesNZ];
     var firstNamesLabels = ["A-M", "N-Z"];
-    console.log(firstNames);
-    console.log(firstNamesLabels);
+
 
     var lastNames = [data.lastNamesAM, data.lastNamesNZ];
     var lastNamesLabels = ["A-M", "N-Z"];
-    console.log(lastNames);
-    console.log(lastNamesLabels);
+
 
     var states = data.mostPopulousStates;
     var statePops = [];
@@ -260,8 +251,7 @@ function processFileContent(fileContent){
         statePops.push(states[key]);
         stateLabels.push(key);
     })
-    console.log(statePops)
-    console.log(stateLabels)
+
 
     var femaleStates = data.mostPopulousStatesFemale;
     var femaleStatePops = [];
@@ -270,8 +260,7 @@ function processFileContent(fileContent){
         femaleStatePops.push(femaleStates[key]);
         femaleStateLabels.push(key);
     })
-    console.log(femaleStatePops)
-    console.log(femaleStateLabels)
+
 
     var maleStates = data.mostPopulousStatesMale;
     var maleStatePops = [];
@@ -280,8 +269,7 @@ function processFileContent(fileContent){
         maleStatePops.push(maleStates[key]);
         maleStateLabels.push(key);
     })
-    console.log(maleStatePops)
-    console.log(maleStateLabels)
+
 
     var agesGroups = data.AgeGroups;
     var ageCounts = [];
@@ -290,8 +278,7 @@ function processFileContent(fileContent){
         ageCounts.push(agesGroups[key]);
         ageLabels.push(key);
     })
-    console.log(ageCounts);
-    console.log(ageLabels);
+
 
     var parent = document.getElementById("div1");
     var children = [];
