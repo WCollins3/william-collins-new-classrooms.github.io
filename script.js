@@ -170,6 +170,8 @@ function processFileContent(fileContent){
 
     var essentialDataString = getEssentialData(fileContent);
 
+    console.log(essentialDataString);
+
     var dataText = "";
 
     function loadXMLDoc(theURL)
