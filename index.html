@@ -8,10 +8,10 @@
     function get100Users(){
         var people;
         $.ajax({
-            url: 'https://randomuser.me/api/?results=100',
+            url: 'https://randomuser.me/api/',
             dataType: 'json',
             success: function(data) {
-                people = data;
+                console.log(data);
             }
         });
         document.getElementById("text").value = people;
