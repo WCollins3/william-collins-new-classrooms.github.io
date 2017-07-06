@@ -100,7 +100,7 @@ function getMales(people){
 }
 
 function groupAges(people){
-    var ages = [[],[],[],[],[],[]]
+    var ages = [0,0,0,0,0,0]
     people.forEach(function(person){
         var birth = new Date(person.dob.toString()).getTime();
         var ageDay = Date.now() - birth;
@@ -108,9 +108,9 @@ function groupAges(people){
         var age = ageMill.getUTCFullYear() - 1970;
         var placement = Math.floor(age/20);
         if(placement < 120) {
-            ages[placement].push(person);
+            ages[placement] += 1;
         }else{
-            ages[5].push(person);
+            ages[5].push += 1;
         }
     })
     return ages;
@@ -220,10 +220,10 @@ function processFileContent(fileContent){
 
         data.femalePercent = (females.length / people.length) * 100;
         data.malePercent = (males.length / people.length) * 100;
-        data.firstNamesAM = firstNames[0];
-        data.firstNamesNZ = firstNames[1];
-        data.lastNamesAM = lastNames[0];
-        data.lastNamesNZ = lastNames[1];
+        data.firstNamesAM = len(firstNames[0]);
+        data.firstNamesNZ = len(firstNames[1]);
+        data.lastNamesAM = len(lastNames[0]);
+        data.lastNamesNZ = len(lastNames[1]);
         data.mostPopulousStates = mostPopStates;
         data.mostPopulousStatesFemale = mostPopStatesFemale;
         data.mostPopulousStatesMale = mostPopStatesMale;
