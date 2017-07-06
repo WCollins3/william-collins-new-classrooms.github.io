@@ -1,5 +1,4 @@
-function createChart(inputData, labels, headLabel, htmlElementID){
-    //document.createElement("div").setAttribute("id", "chartContainer").setAttribute("style", "height: 300px; width: 100%;");
+function createChart(inputData, labels, headLabel, htmlElementID){ //Credit: CanvasJS.com
     document.getElementById(htmlElementID).setAttribute("style", "height: 300px; width: 100%;");
     this.formattedData = []
     for(i = 0; i < inputData.length; i++){
@@ -157,10 +156,30 @@ function getEssentialData(fileContent){
     var newContent = {results: []};
     content.forEach(function(person){
         var newPerson = {}
-        newPerson.gender = person.gender;
-        newPerson.name = person.name;
-        newPerson.dob = person.dob;
-        newPerson.location = person.location;
+        try {
+            newPerson.gender = person.gender;
+        }
+        catch (err){
+            console.log("Person Missing Gender");
+        }
+        try {
+            newPerson.name = person.name;
+        }
+        catch (err){
+            console.log("Person Missing Name");
+        }
+        try {
+            newPerson.dob = person.dob;
+        }
+        catch (err){
+            console.log("Person Missing Date of Birth");
+        }
+        try {
+            newPerson.location = person.location;
+        }
+        catch (err){
+            console.log("Person Missing location");
+        }
         newContent.results.push(newPerson);
     })
     console.log(newContent);
