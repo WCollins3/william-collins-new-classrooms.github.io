@@ -324,3 +324,16 @@ function textSub(){
     var text = document.getElementById("text").value;
     processFileContent(text);
 }
+
+function getUsers(amount){
+    var people = "";
+    $.ajax({
+        url: 'https://randomuser.me/api/?results=' + amount.toString(),
+        dataType: 'json',
+        success: function(data) {
+            people += JSON.stringify(data)
+            console.log(people)
+            document.getElementById("text").value = people;
+        }
+    });
+}
