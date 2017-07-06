@@ -180,7 +180,7 @@ function processFileContent(fileContent){
     var data = {};
 
     if (stringSize < 7900) {
-
+        console.log("API call")
 
         function loadXMLDoc(theURL) {
             if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari, SeaMonkey
@@ -212,6 +212,8 @@ function processFileContent(fileContent){
         console.log(data)
     }
     else{
+        console.log("Internal Functions")
+
         var people = JSON.parse(fileContent).results;
         var females = getFemales(people)
         var males = getMales(people);
