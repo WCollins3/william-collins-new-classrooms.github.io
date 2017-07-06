@@ -220,11 +220,18 @@ function processFileContent(fileContent){
         var mostPopStates = getMostPopStates(people);
         var mostPopStatesFemale = getMostPopStates(females);
         var mostPopStatesMale = getMostPopStates(males);
+        var ageGroups = groupAges(people);
 
-        data.femalePercent = (females.length / people.length) * 100
-        data.malePercent = (females.length / people.length) * 100
-
-
+        data.femalePercent = (females.length / people.length) * 100;
+        data.malePercent = (males.length / people.length) * 100;
+        data.firstNamesAM = firstNames[0];
+        data.firstNamesNZ = firstNames[1];
+        data.lastNamesAM = lastNames[0];
+        data.lastNamesNZ = lastNames[1];
+        data.mostPopulousStates = mostPopStates;
+        data.mostPopulousStatesFemale = mostPopStatesFemale;
+        data.mostPopulousStatesMale = mostPopStatesMale;
+        data.AgeGroups = ageGroups;
 
     }
 
