@@ -58,7 +58,7 @@ function getMostPopStates(people){
     })
     if(states.length < 10){
         for (i = 0; i < states.length; i++){
-            stateCounts[states[i]] = counts[i];
+            stateCounts[states[i]] = (counts[i] / people.length) * 100;
         }
     }else{
         var currTop = -1;
@@ -70,7 +70,7 @@ function getMostPopStates(people){
                     currTopIndex = i;
                 }
             }
-            stateCounts[states[currTopIndex]] = currTop;
+            stateCounts[states[currTopIndex]] = (currTop / people.length) * 100;
             states.splice(currTopIndex, 1);
             counts.splice(currTopIndex, 1);
             currTopIndex = -1;
@@ -135,7 +135,7 @@ function groupAges(people){
     })
     ageGroups = {};
     for(i =0; i < ages.length; i++){
-        ageGroups[ageLabels[i]] = ages[i];
+        ageGroups[ageLabels[i]] = (ages[i] / people.length) * 100;
     }
     return ageGroups;
 }
@@ -274,10 +274,10 @@ function processFileContent(fileContent){
 
         data.femalePercent = (females.length / people.length) * 100;
         data.malePercent = (males.length / people.length) * 100;
-        data.firstNamesAM = firstNames[0].length;
-        data.firstNamesNZ = firstNames[1].length;
-        data.lastNamesAM = lastNames[0].length;
-        data.lastNamesNZ = lastNames[1].length;
+        data.firstNamesAM = (firstNames[0].length / people.length) * 100;
+        data.firstNamesNZ = (firstNames[1].length / people.length) * 100;
+        data.lastNamesAM = (lastNames[0].length / people.length) * 100;
+        data.lastNamesNZ = (lastNames[1].length / people.length) * 100;
         data.mostPopulousStates = mostPopStates;
         data.mostPopulousStatesFemale = mostPopStatesFemale;
         data.mostPopulousStatesMale = mostPopStatesMale;
