@@ -149,9 +149,18 @@ function groupLastName(people){
     return lastNames;
 }
 
+function getEssentialData(fileContent){
+    content = JSON.parse(fileContent);
+    console.log(content)
+    var newContent = {};
+
+}
+
 function processFileContent(fileContent){
 
-    var dataText = ""
+    var essentialDataString = getEssentialData(fileContent);
+
+    var dataText = "";
 
     function loadXMLDoc(theURL)
     {
