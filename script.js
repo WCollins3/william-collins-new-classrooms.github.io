@@ -41,44 +41,41 @@ function createChart(inputData, labels, headLabel, htmlElementID){
 }
 
 function getMostPopStates(people){
-    var states = {}
-    people.forEach(function(person){
-        var state = person.location.state;
-        if(!(state in states)){
-            states[state] = 0
-        }
-        states[state] += 1;
-    })
-
-    var items = Object.keys(states).map(function(key){
-        return [key, states[key]];
-    })
-
-    items.sort(function(first, second) {
-        return second[1] - first[1];
-    });
-    var ret = items.slice(0, 10);
-    for (i = 0; i < ret.length; i++){
-        ret[i] = ret[i][0];
-    }
-    return ret;
-}
-
-function returnStateCounts(people, states){
+    var stateCounts = {};
+    var states = [];
     var counts = [];
-    var stateList = [];
-    for (i = 0; i < states.length; i++) {
-        counts.push(0);
-    }
     people.forEach(function(person){
-        var state = person.location.state;
-        var index = states.indexOf(state);
-        if(index != -1){
-            counts[index] += 1;
+        var state = person.location.state
+        if(!(state in states)){
+            states.push(state);
+            counts.push(0);
         }
+        counts[states.indexOf(state)] += 1;
     })
-    return counts;
+    if(states.length < 10){
+        for (i = 0; i < states.length; i++){
+            stateCounts[states[i]] = counts[i];
+        }
+    }else{
+        var currTop = -1;
+        var currTopIndex = -1;
+        for(count = 0; count < 10; count++){
+            for(i = 0; i < states.length; i++){
+                if(counts[i] > currTop){
+                    currTop = counts[i];
+                    currTopIndex = i;
+                }
+            }
+            stateCounts[states[currTopIndex]] = currTop;
+            states.splice(currTopIndex, 1);
+            counts.splice(currTopIndex, 1);
+            currTopIndex = -1;
+            currTop = -1;
+        }
+    }
+    return stateCounts;
 }
+
 
 function returnFemales(people){
     var females = []
@@ -217,7 +214,7 @@ function processFileContent(fileContent){
     else{
         var people = JSON.parse(fileContent).results;
         var mostPopStates = getMostPopStates(people);
-        
+
     }
 
 
