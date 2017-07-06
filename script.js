@@ -220,10 +220,10 @@ function processFileContent(fileContent){
 
         data.femalePercent = (females.length / people.length) * 100;
         data.malePercent = (males.length / people.length) * 100;
-        data.firstNamesAM = len(firstNames[0]);
-        data.firstNamesNZ = len(firstNames[1]);
-        data.lastNamesAM = len(lastNames[0]);
-        data.lastNamesNZ = len(lastNames[1]);
+        data.firstNamesAM = firstNames[0].length;
+        data.firstNamesNZ = firstNames[1].length;
+        data.lastNamesAM = lastNames[0].length;
+        data.lastNamesNZ = lastNames[1].length;
         data.mostPopulousStates = mostPopStates;
         data.mostPopulousStatesFemale = mostPopStatesFemale;
         data.mostPopulousStatesMale = mostPopStatesMale;
