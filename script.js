@@ -150,9 +150,17 @@ function groupLastName(people){
 }
 
 function getEssentialData(fileContent){
-    content = JSON.parse(fileContent);
+    content = JSON.parse(fileContent).results;
     console.log(content)
-    var newContent = {};
+    var newContent = {results: []};
+    content.forEach(function(person){
+        var newPerson = {}
+        newPerson.gender = person.gender;
+        newPerson.name = person.name;
+        newPerson.dob = person.dob;
+        newContent.results.push(newPerson);
+    })
+    console.log(newContent);
 
 }
 
