@@ -4,6 +4,20 @@
 
 <body>
 
+<script>
+    function get100Users(){
+        var people;
+        $.ajax({
+            url: 'https://randomuser.me/api/',
+            dataType: 'json',
+            success: function(data) {
+                people = data;
+            }
+        });
+        document.getElementById("text").value = data;
+    }
+</script>
+
 <div id="div1">
     <input type="file" id="file" name="file" accept=".txt,.json,.xml">
     <br>
@@ -12,6 +26,7 @@
     <br>
     <button id="fileSub" onclick="fileSub()">Use Data From File</button>
     <button id="textSub" onclick="textSub()">Use Data From Text Field</button>
+    <button id="get100Users" onclick="get100Users()">Fill Text Field With 100 Random Users</button>
 </div>
 
 <div id="chartContainerGender" style="height: 300px; width: 100%;"></div>
