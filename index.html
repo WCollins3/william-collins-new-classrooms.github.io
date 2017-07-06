@@ -6,12 +6,12 @@
 
 <script>
     function get100Users(){
-        var people;
+        var people = "";
         $.ajax({
-            url: 'https://randomuser.me/api/',
+            url: 'https://randomuser.me/api/?results=5000',
             dataType: 'json',
             success: function(data) {
-                console.log(data);
+                people += String(data)
             }
         });
         document.getElementById("text").value = people;
