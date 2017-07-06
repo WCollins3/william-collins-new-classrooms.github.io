@@ -13,10 +13,9 @@
             success: function(data) {
                 people += JSON.stringify(data)
                 console.log(people)
+                document.getElementById("text").value = people;
             }
         });
-        console.log(people)
-        document.getElementById("text").value = people;
     }
 </script>
 
