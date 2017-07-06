@@ -162,6 +162,7 @@ function getEssentialData(fileContent){
         newContent.results.push(newPerson);
     })
     console.log(newContent);
+    return JSON.stringify(newContent)
 
 }
 
